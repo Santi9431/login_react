@@ -1,4 +1,6 @@
 import React, {useState, useEffect } from "react";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebase/firebaseInit";
 
 export const Registrar = () => {
 
@@ -20,7 +22,19 @@ export const Registrar = () => {
   const [precio, setPrecio] = useState("");
 
 
-  const botonGuardar = (e) => {
+  const botonGuardar =  async(e) => {
+    
+    try {
+      const docRef = await addDoc(collection(db, "users"), {
+        first: "Ada",
+        last: "Lovelace",
+        born: 1815
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+
     e.preventDefault();
     var miObjeto = { titulo, estilo, tecnica, precio}
     setRegistrosLogin([...registrosLogin, miObjeto])
@@ -51,6 +65,7 @@ export const Registrar = () => {
       <div className="h3">
         Formulario De Registro De Pinturas
         <br/>
+        
         <form id="miFormulario" onSubmit={ botonGuardar} >
           <div className="row" style={{marginTop:20}}>
             <div className="col-6">
