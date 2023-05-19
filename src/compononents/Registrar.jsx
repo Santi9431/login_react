@@ -22,25 +22,24 @@ export const Registrar = () => {
   const [precio, setPrecio] = useState("");
 
 
-  const botonGuardar =  async(e) => {
-    
-    try {
-      const docRef = await addDoc(collection(db, "users"), {
-        first: "Ada",
-        last: "Lovelace",
-        born: 1815
-      });
-      console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    }
-
-    e.preventDefault();
-    var miObjeto = { titulo, estilo, tecnica, precio}
-    setRegistrosLogin([...registrosLogin, miObjeto])
-    limpiarFormulario();
-
-  }
+  const botonGuardar = async (e) => {
+		e.preventDefault();
+		console.log('asasdas');
+		try {
+			const docRef = await addDoc(collection(db, 'pinturas'), {
+				Titulo: titulo,
+				Estilo: estilo,
+				Tecnica: tecnica,
+				Precio: precio,
+			});
+			console.log('Document written with ID: ', docRef.id);
+			var miObjeto = { titulo, estilo, tecnica, precio };
+			setRegistrosLogin([...registrosLogin, miObjeto]);
+			limpiarFormulario();
+		} catch (error) {
+			console.error('Error adding document: ', error);
+		}
+	}
 
   useEffect(()=> {
     localStorage.setItem("registroslogin", JSON.stringify(registrosLogin))
@@ -66,7 +65,7 @@ export const Registrar = () => {
         Formulario De Registro De Pinturas
         <br/>
         
-        <form id="miFormulario" onSubmit={ botonGuardar} >
+        <form id="miFormulario"  >
           <div className="row" style={{marginTop:20}}>
             <div className="col-6">
               <input className="form-control form-control-lg text-center" type="text" placeholder="Digite El Título"  onChange={(e) => setTitulo(e.target.value)} required  />
@@ -96,9 +95,9 @@ export const Registrar = () => {
             </div>
           </div>
 
-          <div className="row" style={{marginTop:20}}>
+          <div className="row" style={{marginTop:20}}  >
             <div className="col">
-              <button className="btn btn-primary btn-lg">Guardar Datos</button>
+              <button className="btn btn-primary btn-lg" onClick={ botonGuardar} >Guardar Datos</button>
             </div>
           </div>
         </form>

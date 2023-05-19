@@ -7,17 +7,20 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBM-6VLzutpzKKl9NBIE4VbdeRH784jrgI",
-  authDomain: "inventario-pinturas.firebaseapp.com",
-  projectId: "inventario-pinturas",
-  storageBucket: "inventario-pinturas.appspot.com",
-  messagingSenderId: "897870410045",
-  appId: "1:897870410045:web:1bb5ea4897149220585554"
+
+  apiKey: "AIzaSyBu4DN6mh7Z6fK7O2LrXJKURMaXLItrsYs",
+  authDomain: "pinturas-6c0b0.firebaseapp.com",
+  projectId: "pinturas-6c0b0",
+  storageBucket: "pinturas-6c0b0.appspot.com",
+  messagingSenderId: "115088167475",
+  appId: "1:115088167475:web:48187a9b71a5d618a68946"
+
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export default {db};
+export  {db};
 
