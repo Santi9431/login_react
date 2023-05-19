@@ -1,87 +1,86 @@
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
+import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
+import { db } from '../firebase/firebaseInit';
 
 export const Listar = () => {
-  const obtenerRegistros = () => {
-    var datos = localStorage.getItem("registroslogin");
-    console.log("Datos cargados desde LocalStorage: ", datos);
-    if (datos) {
-      return JSON.parse(datos);
-    } else {
-      return [];
-    }
-  };
+	const [arrayDatos, setArrayDatos] = useState([]);
 
-  const [registrosLogin, setRegistrosLogin] = useState(obtenerRegistros());
-  console.log("Registros cargados en el estado: ", registrosLogin);
+	async function obtenerRegistros() {
+		const data = [];
+		const querySnapshot = await getDocs(collection(db, 'pinturas'));
+		querySnapshot.forEach((doc) => {
+			data.push({ docId: doc.id, ...doc.data() });
+		});
 
-  const botonEliminar = (miIndex) => {
-    if (window.confirm("¿Esta seguro que quiere eliminar registro?")) {
-      var registroFiltrados = registrosLogin.filter((e, index) => {
-        return miIndex !== index;
-      });
-      setRegistrosLogin(registroFiltrados);
-    }
-  };
-  useEffect(() => {
-    localStorage.setItem("registroslogin", JSON.stringify(registrosLogin));
-  }, [registrosLogin]);
+		setArrayDatos([...arrayDatos, ...data]);
+	}
 
-  return (
+	const botonEliminar = async (miIndex) => {
+		if (window.confirm('¿Está seguro que quiere eliminar el registro?')) {
+			const registroFiltrados = arrayDatos.filter((e, index) => {
+				return miIndex !== index;
+			});
+			const docId = arrayDatos[miIndex].docId;
+			await deleteDoc(doc(db, 'pinturas', docId));
+			setArrayDatos(registroFiltrados);
+		}
+	};
 
+	useEffect(() => {
+		obtenerRegistros();
+	}, []); // Empty dependency array to run the effect only once on component mount
 
-    <div className="bg-light" style={{ marginTop: 20, padding: 20 }}>
-      <div className="h3">Listado De Registro De Pinturas
-      </div>
+	return (
+		<div className="bg-light" style={{ marginTop: 20, padding: 20 }}>
+			<div className="h3">Listado De Registro De Pinturas</div>
 
-      <div className="table-responsive">
-
-        { registrosLogin.length > 0 ?
-        
-
-        <>
-          <table
-            className="table table-bordered table-hover"
-            style={{ marginTop: 12 }}
-          >
-            <thead
-              className="text-center"
-              style={{ background: "lightgray" }}
-            >
-              <tr>
-                <th>#</th>
-                <th>Titulo</th>
-                <th>Estilo</th>
-                <th>Tecnica</th>
-                <th>Precio</th>
-                <th>X</th>
-              </tr>
-            </thead>
-            <tbody className="text-center align-baseline">
-              {registrosLogin.map((x, index) => (
-                <tr key={index}>
-                  <th>{index + 1}</th>
-                  <td>{x.titulo}</td>
-                  <td>{x.estilo}</td>
-                  <td>{x.tecnica}</td>
-                  <td>{x.precio}</td>
-                  <td className="text-center">
-                    <button
-                      className="btn btn-outline-danger"
-                      onClick={() => botonEliminar(index)}
-                    >
-                      <i className="bi bi-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </>
-
-        : <p className='h5' style={{color: "red"}}>"No hay registros para Mostrar"</p>
-        }
-
-      </div>
-    </div>
-  );
+			<div className="table-responsive">
+				{arrayDatos.length > 0 ? (
+					<>
+						<table
+							className="table table-bordered table-hover"
+							style={{ marginTop: 12 }}
+						>
+							<thead
+								className="text-center"
+								style={{ background: 'lightgray' }}
+							>
+								<tr>
+									<th>#</th>
+									<th>Título</th>
+									<th>Estilo</th>
+									<th>Técnica</th>
+									<th>Precio</th>
+									<th>X</th>
+								</tr>
+							</thead>
+							<tbody className="text-center align-baseline">
+								{arrayDatos.map((x, index) => (
+									<tr key={index}>
+										<th>{index + 1}</th>
+										<td>{x.titulo}</td>
+										<td>{x.estilo}</td>
+										<td>{x.tecnica}</td>
+										<td>{x.precio}</td>
+										<td className="text-center">
+											<button
+												className="btn btn-outline-danger"
+												onClick={() => botonEliminar(index)}
+											>
+												<i className="bi bi-trash"></i>
+											</button>
+										</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</>
+				) : (
+					<p className="h5" style={{ color: 'red' }}>
+						"No hay registros para mostrar"
+					</p>
+				)}
+			</div>
+		</div>
+	);
 };
