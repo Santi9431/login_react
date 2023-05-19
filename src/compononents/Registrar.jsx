@@ -30,6 +30,7 @@ export const Registrar = () => {
 				Titulo: titulo,
 				Estilo: estilo,
 				Tecnica: tecnica,
+        
 				Precio: precio,
 			});
 			console.log('Document written with ID: ', docRef.id);
