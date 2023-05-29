@@ -32,13 +32,13 @@ export const Listar = () => {
 
 	return (
 		<div className="bg-light" style={{ marginTop: 20, padding: 20 }}>
-			<div className="h3">Listado De Registro De Pinturas</div>
+			<div className="h3">Listado De Registro </div>
 
 			<div className="table-responsive">
 				{arrayDatos.length > 0 ? (
 					<>
 						<table
-							className="table table-bordered table-hover"
+							className="table table-bordered table-hover table-dark"
 							style={{ marginTop: 12 }}
 						>
 							<thead

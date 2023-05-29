@@ -50,7 +50,7 @@ export const Registrar = () => {
 	return (
 		<div className="bg-light" style={{ marginTop: 20, padding: 20 }}>
 			<div className="h3">
-				Formulario De Registro De Pinturas
+				Formulario De Registro 
 				<br />
 				<form id="miFormulario">
 					<div className="row" style={{ marginTop: 20 }}>
@@ -58,7 +58,7 @@ export const Registrar = () => {
 							<input
 								className="form-control form-control-lg text-center"
 								type="text"
-								placeholder="Digite El Título"
+								placeholder="Digite el Componente"
 								onChange={(e) => setTitulo(e.target.value)}
 								required
 							/>
@@ -70,26 +70,23 @@ export const Registrar = () => {
 								onChange={(e) => setEstilo(e.target.value)}
 								required
 							>
-								<option value="">Indique Estilo</option>
-								<option value="Retrato">Retrato</option>
-								<option value="Paisaje">Paisaje</option>
-								<option value="Desnudo">Desnudo</option>
+								<option value="">Indique la Marca</option>
+								<option value="Ryzen">Ryzen</option>
+								<option value="Intel">Intel</option>
+								<option value="Nvidia">Nvidia</option>
 							</select>
 						</div>
 					</div>
 
 					<div className="row" style={{ marginTop: 20 }}>
 						<div className="col-6">
-							<select
-								className="form-select form-select-lg text-center"
+							<input
+								className="form-control form-control-lg text-center"
+								type="text"
+								placeholder="Digite la Serie"
 								onChange={(e) => setTecnica(e.target.value)}
 								required
-							>
-								<option value="">Indique Técnica</option>
-								<option value="Óleo">Óleo</option>
-								<option value="Acrílico">Acrílico</option>
-								<option value="Pastel">Pastel</option>
-							</select>
+							/>
 						</div>
 						<div className="col-6">
 							<input
