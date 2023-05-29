@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {Menu } from './Menu.jsx'
+import { inisiar_Sesion, createcount } from './auth.jsx';
 
 
 export const Login = () => {
@@ -12,20 +13,14 @@ export const Login = () => {
         e.preventDefault();
         var txtusu = usu;
         var txtpas = pas;
-
+        
         if(txtusu.length === 0 || txtpas.length === 0){
             alert("Complete los Datos faltantes !!");
         }else{
-            if(usu === "admin" && pas === "123"){
+            inisiar_Sesion(usu, pas)
                 setMiLogin(true);
                 document.getElementById("form_login").style.display = "none";
-            }else{
-                setMiLogin(false);
-                alert("Error de Usuario y/o Contraseña!!");
-                document.getElementById("txtusu").value = "";
-                document.getElementById("txtpas").value = "";
-                document.getElementById("txtusu").focus();
-            }
+           
         }
 
     }
