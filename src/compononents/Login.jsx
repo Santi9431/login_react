@@ -39,7 +39,12 @@ export const Login = () => {
                 <label htmlFor="txtpas"><strong>Password</strong></label>
                 <input type="password" id="txtpas" style={{textAlign:"center"}} className="form-control" onChange={(e)=>setPas(e.target.value) } required/>
             </div><br/>
-            <input type="submit" className="btn btn-primary" value="Login" onClick={inisiarSesion}/>
+            <input type="submit" className="btn btn-primary" value="Entrar" onClick={inisiarSesion}/>
+            <br />
+            <br />
+            <p>¿ Todavia no te registras ?</p>
+            <input type="submit" className="btn btn-primary" value="Registrar" onClick={inisiarSesion}/>
+            <p></p>
         </form>
 
         {miLogin  && <Menu usu={usu} />}
